@@ -30,22 +30,24 @@ const Perceptions = ({ cityId, perceptions }) => {
 
 const Form = props => {
   const selectrows = props.cities.map(city => (
-    <option key={city.id} value={city.name}>
+    <option key={city.id} value={city.id}>
       {city.name}
     </option>
   ));
   return (
     <form onSubmit={props.onSubmit}>
       <div>
-        <select name="city">{selectrows}</select>
+        <select name="city" onChange={props.cityOnChange}>
+          {selectrows}
+        </select>
         Temperature:{" "}
         <input
-          value={props.nameValue}
-          onChange={props.nameOnChange}
+          value={props.temperatureValue}
+          onChange={props.temperatureOnChange}
           type="number"
         />
-        Comments:
-        <input value={props.numberValue} onChange={props.numberOnChange} />
+        Comment:
+        <input value={props.commentValue} onChange={props.commentOnChange} />
       </div>
       <div>
         <button type="submit">lisää</button>
@@ -63,7 +65,7 @@ class App extends Component {
       perceptions: [],
       newTemperature: "",
       newComment: "",
-      newPerceptionCityId: ""
+      newPerceptionCityId: 1
     };
   }
 
@@ -90,17 +92,31 @@ class App extends Component {
     this.setState({ newComment: event.target.value });
   };
 
-  addPerception = (event) => {
-    event.preventDefault()
+  handleNewCityId = event => {
+    this.setState({
+      newPerceptionCityId: event.target.value
+    });
+  };
+
+  addPerception = event => {
+    event.preventDefault();
 
     const perceptionObject = {
       city_id: this.state.newPerceptionCityId,
       temperature: this.state.newTemperature,
-      comment: this.state.newPerceptionCityId
-    }
+      comment: this.state.newComment
+    };
 
-    perceptionService.addPerceptionForCity(perceptionObject)
-  }
+    console.log(perceptionObject)
+
+    const post = perceptionService.addPerceptionForCity(perceptionObject);
+    console.log(post)
+
+    this.setState({
+      newComment: "",
+      newTemperature: ""
+    })
+  };
 
   render() {
     return (
@@ -109,14 +125,16 @@ class App extends Component {
           <h1 className="App-title">Eeppinen säähavainto app</h1>
         </header>
         <div className="App-form">
-        <Form
-          onSubmit={this.addPerception}
-          valueTemperature={this.state.newTemperature}
-          temperatureOnChange={this.handleNewTemperature}
-          valueComment={this.state.newComment}
-          commentOnChange={this.handleNewComment}
-          cities={this.state.cities}
-        />
+          <Form
+            onSubmit={this.addPerception}
+            cityValue={this.state.newPerceptionCityId}
+            cityOnChange={this.handleNewCityId}
+            temperatureValue={this.state.newTemperature}
+            temperatureOnChange={this.handleNewTemperature}
+            commentValue={this.state.newComment}
+            commentOnChange={this.handleNewComment}
+            cities={this.state.cities}
+          />
         </div>
         <div className="App-intro">
           <Cities cities={this.state.cities} onClick={this.selectCity} />
