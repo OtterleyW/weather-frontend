@@ -11,4 +11,4 @@ const addPerceptionForCity = perceptionObject => {
   return request.then(response => response.data);
 };
 
-export default {getPerceptionsOfCity, addPerceptionsOfCity};
+export default {getPerceptionsOfCity, addPerceptionForCity};
