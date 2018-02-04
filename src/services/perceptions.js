@@ -1,13 +1,13 @@
 import axios from "axios";
-const baseUrl = "http://localhost:3001/api/cities";
+const baseUrl = "/api/";
 
 const getPerceptionsOfCity = id => {
-  const request = axios.get(`${baseUrl}/${id}/perceptions`);
+  const request = axios.get(`${baseUrl}cities/${id}/perceptions`);
   return request.then(response => response.data);
 };
 
-const addPerceptionsOfCity = id => {
-  const request = axios.put(`${baseUrl}/${id}/perceptions`);
+const addPerceptionForCity = perceptionObject => {
+  const request = axios.post(`${baseUrl}/perceptions`, perceptionObject);
   return request.then(response => response.data);
 };
 

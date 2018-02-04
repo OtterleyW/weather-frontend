@@ -62,12 +62,13 @@ class App extends Component {
       cityId: 0,
       perceptions: [],
       newTemperature: "",
-      newComment: ""
+      newComment: "",
+      newPerceptionCityId: ""
     };
   }
 
   componentWillMount() {
-    axios.get("http://localhost:3001/api/cities").then(response => {
+    axios.get("/api/cities").then(response => {
       this.setState({ cities: response.data.data });
     });
   }
@@ -88,6 +89,18 @@ class App extends Component {
   handleNewComment = event => {
     this.setState({ newComment: event.target.value });
   };
+
+  addPerception = (event) => {
+    event.preventDefault()
+
+    const perceptionObject = {
+      city_id: this.state.newPerceptionCityId,
+      temperature: this.state.newTemperature,
+      comment: this.state.newPerceptionCityId
+    }
+
+    perceptionService.addPerceptionForCity(perceptionObject)
+  }
 
   render() {
     return (
