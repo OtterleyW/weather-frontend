@@ -21,7 +21,8 @@ const Perceptions = ({ cityId, perceptions }) => {
   } else {
     const rows = perceptions.map(perception => (
       <p key={perception.id}>
-        Temperature {perception.temperature} ({perception.comment})
+        Temperature {perception.temperature} {perception.unit} ({perception.comment}) {perception.created_at}
+
       </p>
     ));
     return <div>{rows}</div>;
