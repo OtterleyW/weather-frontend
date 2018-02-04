@@ -1,15 +1,14 @@
 import React from "react";
 import Perception from "./Perception";
 
-const City = ({ city, perceptions }) => {
+const City = ({ city, perceptions, showFahrenheit }) => {
+  // If wanted perception is not found, show information to user
   let latestPerception = "No perceptions from this location yet";
-
   let highestPerception = "No perceptions in 24 hours";
-
   let lowestPerception = "No perceptions in 24 hours";
 
   if (perceptions[0]) {
-    // Find latest perception
+    // Find latest perception. You can assume that first perception is newest one because backend has already sorted data by created_at timestamp.
     latestPerception = perceptions[0];
 
     // Find highest and lowest perceptions in last 24 hours
@@ -19,19 +18,26 @@ const City = ({ city, perceptions }) => {
         new Date() - new Date(perception["created_at"].replace(" ", "T")) <
         TWENTYFOUR_HOURS
       ) {
-        // Set first perception to be highest and lowest
+        // Set highest and lowest to null before comparing perceptions
         if (i === 0) {
-          highestPerception = perception;
-          lowestPerception = perception;
+          highestPerception = null;
+          lowestPerception = null;
         }
 
-        // If perceptions temperature is higher than current highest temperature update the highestPerception
-        if (highestPerception["temperature"] < perception["temperature"]) {
+        // If highestPerception is not set or perceptions temperature is higher than current highest temperature update the highestPerception
+
+        if (
+          !highestPerception ||
+          highestPerception["temperature"] < perception["temperature"]
+        ) {
           highestPerception = perception;
         }
 
-        // If perceptions temperature is lower than current lowest temperature update lowestPerception
-        if (lowestPerception["temperature"] > perception["temperature"]) {
+        // If lowestPerception is not set or perceptions temperature is lower than current lowest temperature update lowestPerception
+        if (
+          !lowestPerception ||
+          lowestPerception["temperature"] > perception["temperature"]
+        ) {
           lowestPerception = perception;
         }
       }
@@ -46,14 +52,17 @@ const City = ({ city, perceptions }) => {
       <Perception
         perceptionTitle={"Latest perception"}
         perception={latestPerception}
+        showFahrenheit={showFahrenheit}
       />
       <Perception
-        perceptionTitle={"Highest perception"}
+        perceptionTitle={"Highest perception in last 24 hours"}
         perception={highestPerception}
+        showFahrenheit={showFahrenheit}
       />
       <Perception
-        perceptionTitle={"Lowest perception"}
+        perceptionTitle={"Lowest perception in last 24 hours"}
         perception={lowestPerception}
+        showFahrenheit={showFahrenheit}
       />
     </div>
   );

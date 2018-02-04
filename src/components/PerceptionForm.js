@@ -18,7 +18,9 @@ const PerceptionForm = props => {
           value={props.temperatureValue}
           onChange={props.temperatureOnChange}
           type="number"
+          step="any"
         />
+        {props.showFahrenheit ? "°F" : "°C"}
         Comment:
         <input value={props.commentValue} onChange={props.commentOnChange} />
       </div>
