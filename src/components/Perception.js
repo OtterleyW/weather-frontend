@@ -1,26 +1,27 @@
 import React from "react";
 
-const Perception = ({ perception }) => {
-  let unit = perception["unit"] === "Fahrenheit" ? "°F" : "°C";
+const Perception = ({ perceptionTitle, perception }) => {
+  if (typeof perception === "object" && perception !== null) {
+    let unit = perception["unit"] === "Fahrenheit" ? "°F" : "°C";
 
-  let date = ""
+    let date = "";
 
-  if (perception["created_at"]) {
-    date = new Date(perception["created_at"].replace(" ", "T"));
+    if (perception["created_at"]) {
+      date = new Date(perception["created_at"].replace(" ", "T"));
 
-    date = date.toString()
+      date = date.toString();
+    }
+
+    return (
+      <p>
+        {perceptionTitle}: {perception["temperature"]}
+        {unit}
+        <br />
+        <small>{date}</small>
+      </p>
+    );
   }
 
-
-  return (
-    <p>
-      {perception["temperature"]}
-      {unit}<br />
-      <small>
-        {date}
-        </small>
-    </p>
-  );
+  return <p>{perceptionTitle}:{" "}{perception}</p>;
 };
-
 export default Perception;
