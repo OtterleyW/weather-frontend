@@ -1,4 +1,4 @@
-.UnitPicker{
+.UnitPicker {
   margin: 0 auto;
   margin-bottom: 10px;
   padding: 20px;
@@ -8,14 +8,14 @@
   line-height: 1.5;
 }
 
-.UnitPicker-title{
-  font-weight:bold;
+.UnitPicker-title {
+  font-weight: bold;
   font-size: large;
   margin: 0;
   padding: 0;
 }
 
-input[type=radio] {
+input[type="radio"] {
   margin-right: 7px;
   margin-left: 14px;
 }

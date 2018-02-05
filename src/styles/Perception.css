@@ -1,11 +1,13 @@
-.Perception-title{
-
-}
-
-.Perception-temperature{
+.Perception-temperature {
   font-weight: bold;
 }
 
-.Perception-date{
+.Perception-date {
   font-size: small;
+}
+
+.Perception-basic p {
+  margin: 0;
+  padding: 0 !important;
+  line-height: 1;
 }

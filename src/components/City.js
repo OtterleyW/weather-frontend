@@ -1,11 +1,19 @@
 import React from "react";
 import Perception from "./Perception";
+import {
+  Accordion,
+  AccordionItem,
+  AccordionItemTitle,
+  AccordionItemBody
+} from "react-accessible-accordion";
+import "../../node_modules/react-accessible-accordion/dist/react-accessible-accordion.css";
 
-const City = ({ city, perceptions, showFahrenheit, buttonOnClick, buttonText }) => {
+const City = ({ city, perceptions, showFahrenheit }) => {
   // If wanted perception is not found, show information to user
   let latestPerception = "No perceptions from this location yet";
   let highestPerception = "No perceptions in 24 hours";
   let lowestPerception = "No perceptions in 24 hours";
+  let allPerceptions = [];
 
   if (perceptions[0]) {
     // Find latest perception. You can assume that first perception is newest one because backend has already sorted data by created_at timestamp.
@@ -25,7 +33,6 @@ const City = ({ city, perceptions, showFahrenheit, buttonOnClick, buttonText }) 
         }
 
         // If highestPerception is not set or perceptions temperature is higher than current highest temperature update the highestPerception
-
         if (
           !highestPerception ||
           highestPerception["temperature"] < perception["temperature"]
@@ -42,16 +49,22 @@ const City = ({ city, perceptions, showFahrenheit, buttonOnClick, buttonText }) 
         }
       }
     });
+
+    allPerceptions = perceptions.map(perception => (
+      <Perception
+        key={perception.id}
+        perceptionTitle={"basic"}
+        perception={perception}
+        showFahrenheit={showFahrenheit}
+      />
+    ));
   }
-
-
 
   return (
     <div className="City-block">
-    <div className="City-block-top">
-    <h2>{city.name}</h2>
-    </div>
-     
+      <div className="City-block-top">
+        <h2>{city.name}</h2>
+      </div>
 
       <Perception
         perceptionTitle={"Latest"}
@@ -69,8 +82,14 @@ const City = ({ city, perceptions, showFahrenheit, buttonOnClick, buttonText }) 
         showFahrenheit={showFahrenheit}
       />
 
-      <button onClick={buttonOnClick}>{buttonText}</button>
-
+      <Accordion>
+        <AccordionItem>
+          <AccordionItemTitle>
+            <button>View all observations</button>
+          </AccordionItemTitle>
+          <AccordionItemBody>{allPerceptions}</AccordionItemBody>
+        </AccordionItem>
+      </Accordion>
     </div>
   );
 };

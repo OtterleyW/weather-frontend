@@ -4,10 +4,6 @@ const baseUrl = "/api";
 const getAllPerceptions = () => {
   const request = axios.get(`${baseUrl}/perceptions`);
   return request.then(response => response.data);
-}
-const getPerceptionsOfCity = id => {
-  const request = axios.get(`${baseUrl}/cities/${id}/perceptions`);
-  return request.then(response => response.data);
 };
 
 const addPerceptionForCity = perceptionObject => {
@@ -15,4 +11,7 @@ const addPerceptionForCity = perceptionObject => {
   return request.then(response => response.data);
 };
 
-export default {getAllPerceptions, getPerceptionsOfCity, addPerceptionForCity};
+export default {
+  getAllPerceptions,
+  addPerceptionForCity
+};

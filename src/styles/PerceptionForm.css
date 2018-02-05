@@ -4,7 +4,7 @@
   margin-bottom: 10px;
 }
 
-input[type=number]{ 
+input[type="number"] {
   border: 1px solid #ccc;
   border-radius: 4px;
   padding: 5px;
@@ -12,7 +12,7 @@ input[type=number]{
   margin-bottom: 16px;
 }
 
-select{
+select {
   border: 1px solid #ccc;
   border-radius: 4px;
   padding-top: 5px;
@@ -22,7 +22,7 @@ select{
 }
 
 button {
-  background-color: #4CAF50;
+  background-color: #4caf50;
   color: white;
   padding: 12px 20px;
   border: none;
@@ -33,5 +33,3 @@ button {
 button:hover {
   background-color: #45a049;
 }
-
-

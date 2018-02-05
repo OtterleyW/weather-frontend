@@ -2,14 +2,16 @@ import React from "react";
 import "../styles/PerceptionForm.css";
 
 const PerceptionForm = props => {
+  // Get cities for city select
   const selectrows = props.cities.map(city => (
     <option key={city.id} value={city.id}>
       {city.name} ({city.location})
     </option>
   ));
+  
   return (
     <div className="Perception-form">
-    <h2>Add new observation</h2>
+      <h2>Add new observation</h2>
       <form onSubmit={props.onSubmit}>
         <div>
           <label htmlFor="city">Location: </label>
