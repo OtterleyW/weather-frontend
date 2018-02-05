@@ -1,0 +1,44 @@
+.City-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-gap: 10px;
+  grid-auto-rows: minmax(100px, auto);
+}
+
+.City-block {
+  grid-column: auto;
+  grid-row: auto;
+  border: 1px solid black;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.City-block-top{
+  margin-top: 0;
+  background-color: #333;
+  border-bottom: 1px solid black;
+}
+
+.City-block-top img {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: -4px;
+}
+
+.City-block-top h2 {
+  margin: 0;
+  padding: 10px;
+  font-size: x-large;
+  color:white;
+}
+
+.City-block p {
+  text-align:left;
+  margin: 0;
+  padding: 15px;
+  line-height: 1.5;
+}
+
+button {
+  margin-bottom: 10px;
+}

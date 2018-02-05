@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./App.css";
+import "./styles/App.css";
 import axios from "axios";
 import perceptionService from "./services/perceptions";
 import PerceptionForm from "./components/PerceptionForm";
@@ -13,13 +13,12 @@ class App extends Component {
       cities: [],
       perceptions: [],
       newTemperature: "",
-      newComment: "",
       newPerceptionCityId: 1,
       showFahrenheit: false
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     axios.get("/api/cities").then(response => {
       this.setState({ cities: response.data.data });
     });
@@ -30,7 +29,6 @@ class App extends Component {
             id: data.id,
             city_id: data.city_id,
             temperature: Number(data.temperature),
-            comment: data.comment,
             created_at: data.created_at
           };
         })
@@ -41,11 +39,6 @@ class App extends Component {
   handleNewTemperature = event => {
     this.setState({ newTemperature: event.target.value });
   };
-
-  handleNewComment = event => {
-    this.setState({ newComment: event.target.value });
-  };
-
   handleNewCityId = event => {
     this.setState({
       newPerceptionCityId: event.target.value
@@ -66,17 +59,15 @@ class App extends Component {
 
   addPerception = event => {
     event.preventDefault();
-    let temp = Number(this.state.newTemperature)
+    let temp = Number(this.state.newTemperature);
 
-    if(this.state.showFahrenheit){
-      temp = (temp-32) *5/9
+    if (this.state.showFahrenheit) {
+      temp = (temp - 32) * 5 / 9;
     }
     const perceptionObject = {
       city_id: this.state.newPerceptionCityId,
-      temperature: temp,
-      comment: this.state.newComment
+      temperature: temp
     };
-
     perceptionService
       .addPerceptionForCity(perceptionObject)
       .then(perceptionService.getAllPerceptions)
@@ -87,7 +78,6 @@ class App extends Component {
               id: data.id,
               city_id: data.city_id,
               temperature: Number(data.temperature),
-              comment: data.comment,
               created_at: data.created_at
             };
           })
@@ -95,7 +85,6 @@ class App extends Component {
       });
 
     this.setState({
-      newComment: "",
       newTemperature: ""
     });
   };
@@ -104,26 +93,23 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <h1 className="App-title">Eeppinen säähavainto app</h1>
-        </header>
-        <div className="App-form">
+          <h1 className="App-title">Temperature observations</h1>
           <PerceptionForm
             onSubmit={this.addPerception}
             cityValue={this.state.newPerceptionCityId}
             cityOnChange={this.handleNewCityId}
             temperatureValue={this.state.newTemperature}
             temperatureOnChange={this.handleNewTemperature}
-            commentValue={this.state.newComment}
-            commentOnChange={this.handleNewComment}
             cities={this.state.cities}
             showFahrenheit={this.state.showFahrenheit}
           />
-        </div>
-        <div className="App-intro">
           <UnitPicker
             showFahrenheit={this.state.showFahrenheit}
             onChange={this.handleUnitChange}
           />
+        </header>
+        <div className="App-form" />
+        <div className="App-content">
           <Cities
             cities={this.state.cities}
             perceptions={this.state.perceptions}

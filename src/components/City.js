@@ -1,7 +1,7 @@
 import React from "react";
 import Perception from "./Perception";
 
-const City = ({ city, perceptions, showFahrenheit }) => {
+const City = ({ city, perceptions, showFahrenheit, buttonOnClick, buttonText }) => {
   // If wanted perception is not found, show information to user
   let latestPerception = "No perceptions from this location yet";
   let highestPerception = "No perceptions in 24 hours";
@@ -44,26 +44,33 @@ const City = ({ city, perceptions, showFahrenheit }) => {
     });
   }
 
+
+
   return (
-    <div className="city-block">
-      <h3>{city.name}</h3>
-      <p>({city.location})</p>
+    <div className="City-block">
+    <div className="City-block-top">
+    <h2>{city.name}</h2>
+    </div>
+     
 
       <Perception
-        perceptionTitle={"Latest perception"}
+        perceptionTitle={"Latest"}
         perception={latestPerception}
         showFahrenheit={showFahrenheit}
       />
       <Perception
-        perceptionTitle={"Highest perception in last 24 hours"}
+        perceptionTitle={"Highest in last 24 hours"}
         perception={highestPerception}
         showFahrenheit={showFahrenheit}
       />
       <Perception
-        perceptionTitle={"Lowest perception in last 24 hours"}
+        perceptionTitle={"Lowest in last 24 hours"}
         perception={lowestPerception}
         showFahrenheit={showFahrenheit}
       />
+
+      <button onClick={buttonOnClick}>{buttonText}</button>
+
     </div>
   );
 };

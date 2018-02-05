@@ -1,4 +1,7 @@
 import React from "react";
+import "../styles/Perception.css"
+
+var dateFormat = require("dateformat");
 
 const Perception = ({ perceptionTitle, perception, showFahrenheit }) => {
   // Check if perception exists
@@ -13,19 +16,18 @@ const Perception = ({ perceptionTitle, perception, showFahrenheit }) => {
     }
     temperature = Math.round(temperature * 10) / 10;
 
-    // Format date to string
+    // Format date
     let date = "";
     if (perception["created_at"]) {
       date = new Date(perception["created_at"].replace(" ", "T"));
-      date = date.toString();
+      date = dateFormat(date, "dd.mm.yyyy HH:MM:ss");
     }
 
     return (
       <p>
-        {perceptionTitle}: {temperature}
-        {unit}
-        <br />
-        <small>{date}</small>
+        <span className="Perception-title">{perceptionTitle}: </span>
+        <span className="Perception-temperature">{temperature} {unit}</span>
+        <br />        <span className="Perception-date">{date}</span>
       </p>
     );
   }

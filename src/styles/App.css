@@ -4,15 +4,14 @@
 
 .App-header {
   background-color: #222;
-  padding: 50px;
   color: white;
+  display: grid;
 }
 
 .App-title {
   font-size: 3em;
 }
 
-.App-form {
-  padding: 50px;
+.App-content {
+  margin: 20px;
 }
-
