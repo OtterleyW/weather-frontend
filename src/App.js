@@ -14,7 +14,8 @@ class App extends Component {
       perceptions: [],
       newTemperature: "",
       newPerceptionCityId: 1,
-      showFahrenheit: false
+      showFahrenheit: false,
+      message: null
     };
   }
 
@@ -60,33 +61,57 @@ class App extends Component {
   addPerception = event => {
     event.preventDefault();
     let temp = Number(this.state.newTemperature);
-
-    if (this.state.showFahrenheit) {
-      temp = (temp - 32) * 5 / 9;
-    }
-    const perceptionObject = {
-      city_id: this.state.newPerceptionCityId,
-      temperature: temp
-    };
-    perceptionService
-      .addPerceptionForCity(perceptionObject)
-      .then(perceptionService.getAllPerceptions)
-      .then(response => {
-        this.setState({
-          perceptions: response.data.map(data => {
-            return {
-              id: data.id,
-              city_id: data.city_id,
-              temperature: Number(data.temperature),
-              created_at: data.created_at
-            };
-          })
+    if (-89.2 < temp && temp < 56.7) {
+      if (this.state.showFahrenheit) {
+        temp = (temp - 32) * 5 / 9;
+      }
+      const perceptionObject = {
+        city_id: this.state.newPerceptionCityId,
+        temperature: temp
+      };
+      perceptionService
+        .addPerceptionForCity(perceptionObject)
+        .then(perceptionService.getAllPerceptions)
+        .then(response => {
+          this.setState({
+            perceptions: response.data.map(data => {
+              return {
+                id: data.id,
+                city_id: data.city_id,
+                temperature: Number(data.temperature),
+                created_at: data.created_at
+              };
+            })
+          });
         });
-      });
 
-    this.setState({
-      newTemperature: ""
-    });
+      this.setState({
+        newTemperature: "",
+        message: { type: "ok", text: "New observation saved!" }
+      });
+    } else {
+      if (temp < -89.2) {
+        this.setState({
+          message: {
+            type: "error",
+            text:
+              "This is lower temperature than lowest ever recorded natural temperature on Earth. Maybe you should check your thermometer?"
+          }
+        });
+      } else {
+        this.setState({
+          message: {
+            type: "error",
+            text:
+              "This is higher temperature than highest ever recorded natural temperature on Earth. Maybe you should check your thermometer?"
+          }
+        });
+      }
+    }
+
+    setTimeout(() => {
+      this.setState({ message: null });
+    }, 5000);
   };
 
   render() {
@@ -102,6 +127,7 @@ class App extends Component {
             temperatureOnChange={this.handleNewTemperature}
             cities={this.state.cities}
             showFahrenheit={this.state.showFahrenheit}
+            message={this.state.message}
           />
           <UnitPicker
             showFahrenheit={this.state.showFahrenheit}

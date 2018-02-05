@@ -1,6 +1,6 @@
 import React from "react";
 import "../styles/PerceptionForm.css";
-
+import Message from "../components/Message";
 const PerceptionForm = props => {
   // Get cities for city select
   const selectrows = props.cities.map(city => (
@@ -8,9 +8,10 @@ const PerceptionForm = props => {
       {city.name} ({city.location})
     </option>
   ));
-  
+
   return (
     <div className="Perception-form">
+      <Message message={props.message} />
       <h2>Add new observation</h2>
       <form onSubmit={props.onSubmit}>
         <div>
