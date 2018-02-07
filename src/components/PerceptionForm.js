@@ -5,7 +5,7 @@ const PerceptionForm = props => {
   // Get cities for city select
   const selectrows = props.cities.map(city => (
     <option key={city.id} value={city.id}>
-      {city.name} ({city.location})
+      {city.name}
     </option>
   ));
 

@@ -64,6 +64,7 @@ const City = ({ city, perceptions, showFahrenheit }) => {
     <div className="City-block">
       <div className="City-block-top">
         <h2>{city.name}</h2>
+        <p>{city.location}</p>
       </div>
 
       <Perception
