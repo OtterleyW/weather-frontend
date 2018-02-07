@@ -61,7 +61,15 @@ class App extends Component {
   addPerception = event => {
     event.preventDefault();
     let temp = Number(this.state.newTemperature);
-    if (-89.2 < temp && temp < 56.7) {
+
+    if (this.state.newTemperature.trim() === "" || isNaN(temp)) {
+      this.setState({
+        message: {
+          type: "error",
+          text: "Temperature is not valid!"
+        }
+      });
+    } else if (-89.2 < temp && temp < 56.7) {
       if (this.state.showFahrenheit) {
         temp = (temp - 32) * 5 / 9;
       }
@@ -98,7 +106,7 @@ class App extends Component {
               "This is lower temperature than lowest ever recorded natural temperature on Earth. Maybe you should check your thermometer?"
           }
         });
-      } else {
+      } else if (temp < 56.7) {
         this.setState({
           message: {
             type: "error",

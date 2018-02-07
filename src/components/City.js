@@ -10,9 +10,9 @@ import "../../node_modules/react-accessible-accordion/dist/react-accessible-acco
 
 const City = ({ city, perceptions, showFahrenheit }) => {
   // If wanted perception is not found, show information to user
-  let latestPerception = "No perceptions from this location yet";
-  let highestPerception = "No perceptions in 24 hours";
-  let lowestPerception = "No perceptions in 24 hours";
+  let latestPerception = "No observations from this location yet";
+  let highestPerception = "No observations in 24 hours";
+  let lowestPerception = "No observations in 24 hours";
   let allPerceptions = [];
 
   if (perceptions[0]) {

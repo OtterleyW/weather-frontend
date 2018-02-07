@@ -24,7 +24,7 @@ const PerceptionForm = props => {
           <input
             value={props.temperatureValue}
             onChange={props.temperatureOnChange}
-            type="number"
+            type="tel"
             step="any"
             name="temperature"
             id="temperature"

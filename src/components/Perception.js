@@ -66,7 +66,7 @@ const Perception = ({ perceptionTitle, perception, showFahrenheit }) => {
   // Return message as string if perception doesn't exist
   return (
     <p>
-      {perceptionTitle}: {perception}
+      {perception}
     </p>
   );
 };
