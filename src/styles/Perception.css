@@ -11,3 +11,9 @@
   padding: 0 !important;
   line-height: 1;
 }
+
+pre {
+  text-align: left;
+  padding-left: 20px;
+  padding-right: 20px;
+}

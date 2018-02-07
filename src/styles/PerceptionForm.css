@@ -10,6 +10,7 @@ input[type="number"] {
   padding: 5px;
   margin-top: 6px;
   margin-bottom: 16px;
+  max-width: 50px;
 }
 
 select {
